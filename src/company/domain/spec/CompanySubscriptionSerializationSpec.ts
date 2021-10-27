@@ -2,9 +2,9 @@ import assert from "assert";
 
 import { aCompanySubscription } from "./CompanySubscriptionFixture";
 
-import { CompanySubscription } from "../CompanySubscription";
+import {CompanySubscription, CompanySubscriptionSnapshot} from "../CompanySubscription";
 
-describe.skip("Company subscription", () => {
+describe("Company subscription", () => {
   it("to snapshot", () => {
     const sub = aCompanySubscription({
       subscriptionId: "1",
@@ -34,7 +34,7 @@ describe.skip("Company subscription", () => {
         return new Date();
       },
     };
-    const snapshot = {
+    const snapshot: CompanySubscriptionSnapshot = {
       currentEnrollment: {
         maxNoOfSubscribers: 1,
         maxNoOnWaitingList: 1,
@@ -46,7 +46,6 @@ describe.skip("Company subscription", () => {
       version: 0,
     };
 
-    // @ts-ignore
     const sub = CompanySubscription.fromSnapshot({ clock, uuid })(snapshot);
 
     assert.deepStrictEqual(sub.toSnapshot(), snapshot);

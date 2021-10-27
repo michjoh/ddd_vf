@@ -46,7 +46,7 @@ describe.skip("Repository", function () {
     const client1Sub = await repository.findBy(sub.id);
     const client2Sub = await repository.findBy(sub.id);
 
-    if (!client1Sub || !client2Sub) throw new Error("No client retreived");
+    if (!client1Sub || !client2Sub) throw new Error("No client retrieved");
 
     client1Sub.enroll("subscriber1");
     client2Sub.enroll("subscriber2");
