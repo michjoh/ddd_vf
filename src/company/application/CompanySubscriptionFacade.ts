@@ -36,5 +36,8 @@ export const SubscriptionFacade = ({
     findCompanySubscription(subscriptionId: string) {
       return companySubscriptionRepository.findBy(subscriptionId);
     },
+    findActiveSubscriptionBy({ subscriberId, subscriptionId }: { subscriberId: string, subscriptionId: string }) {
+      return companySubscriptionRepository.findActive({ subscriberId, subscriptionId });
+    },
   };
 };

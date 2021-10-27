@@ -49,8 +49,11 @@ export const SubscriptionController = (subscriptionFacade: SubscriptionFacade) =
       }
     },
     async checkAccess(req: Request, res: Response, next: NextFunction) {
-      // TODO: implement
-      res.json({ status: "Not implemented" });
+      const active = await subscriptionFacade.findActiveSubscriptionBy({
+        subscriptionId: req.params.subscription,
+        subscriberId: req.params.subscriber,
+      });
+      res.json({ status: active ? "Allowed" : "Denied" });
     },
   };
 };

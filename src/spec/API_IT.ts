@@ -10,7 +10,7 @@ import { generate } from "../shared/common/Uuid";
 import { Db, MongoClient } from "mongodb";
 import { Express } from "express";
 
-describe.skip("Subscription service", function () {
+describe("Subscription service", function () {
   let connection: MongoClient;
   let db: Db;
   let app: Express;
