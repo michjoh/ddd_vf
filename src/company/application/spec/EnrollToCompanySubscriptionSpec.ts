@@ -14,7 +14,7 @@ import { clock } from "../../../shared/common/Clock";
 import { SubscriptionRepository } from "../../domain/SubscriptionRepository";
 import { DomainEventPublisher, Event } from "../../../shared/common/DomainEventPublisher";
 
-describe.skip("Enroll to company subscription", () => {
+describe("Enroll to company subscription", () => {
   let subscriptionFacade: SubscriptionFacade;
   let domainEventPublisher: DomainEventPublisher;
   let companySubscriptionRepository: SubscriptionRepository;
