@@ -10,7 +10,7 @@ import assert from "assert";
 import { Db, MongoClient } from "mongodb";
 import { SubscriptionRepository } from "../../domain/SubscriptionRepository";
 
-describe.skip("Repository", function () {
+describe("Repository", function () {
   let connection: MongoClient;
   let db: Db;
   let repository: SubscriptionRepository;
@@ -43,17 +43,17 @@ describe.skip("Repository", function () {
     });
     await repository.createNew(sub);
 
-    const client1Sub = await repository.findBy(sub.id);
-    const client2Sub = await repository.findBy(sub.id);
+    const client1Sub = await repository.findBy(sub.id); // server 1
+    const client2Sub = await repository.findBy(sub.id); // server 2
 
     if (!client1Sub || !client2Sub) throw new Error("No client retrieved");
 
-    client1Sub.enroll("subscriber1");
-    client2Sub.enroll("subscriber2");
+    client1Sub.enroll("subscriber1"); // server 1
+    client2Sub.enroll("subscriber2"); // server 2
 
-    await repository.update(client1Sub);
+    await repository.update(client1Sub); // server 1
     await assert.rejects(
-      () => repository.update(client2Sub),
+      () => repository.update(client2Sub), // server 2
       /Company subscription subscription1234 must have been modified in the meantime/
     );
   });
