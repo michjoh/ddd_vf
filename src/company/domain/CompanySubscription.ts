@@ -78,7 +78,24 @@ export const CompanySubscription = ({
       return Ok([new SubscriberEnrolled({ subscriptionId, subscriberId, uuid: uuid(), timestamp: clock.now() })]);
     },
     withdraw(subscriberId: string) {
-      // TODO: implement
+      currentEnrollment.withdraw(subscriberId);
+      const possibleNewEnrollment = currentEnrollment.enrollNextPersonFromWaitingList();
+      const withdrawnEvent = new SubscriberWithdrawn({
+        subscriptionId,
+        subscriberId,
+        uuid: uuid(),
+        timestamp: clock.now(),
+      });
+      if (possibleNewEnrollment) {
+        const enrolledEvent = new SubscriberEnrolled({
+          subscriptionId,
+          subscriberId: possibleNewEnrollment,
+          uuid: uuid(),
+          timestamp: clock.now(),
+        });
+        return Ok([withdrawnEvent, enrolledEvent]);
+      }
+      return Ok([withdrawnEvent]);
     },
     isDisabled() {
       return currentStatus === "Disabled";

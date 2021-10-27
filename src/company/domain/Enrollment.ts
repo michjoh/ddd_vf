@@ -37,9 +37,18 @@ export const Enrollment = ({
       }
       return "NotEnrolled";
     },
-    // @ts-ignore
     withdraw(subscriberId: string): EnrollmentStatus {
-      // TODO: implement
+      subscribers = subscribers.filter((id) => id !== subscriberId);
+      waitingList = waitingList.filter((id) => id !== subscriberId);
+      return "NotEnrolled";
+    },
+    enrollNextPersonFromWaitingList() {
+      const [firstPerson] = waitingList;
+      if (firstPerson) {
+        enrollment.withdraw(firstPerson);
+        enrollment.enroll(firstPerson);
+      }
+      return firstPerson;
     },
     capacityLeft() {
       return {

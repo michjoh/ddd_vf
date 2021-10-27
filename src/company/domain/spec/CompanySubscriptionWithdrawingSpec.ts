@@ -22,7 +22,7 @@ const uuid = () => UUID;
 const SUBSCRIBER_ID = SubscriberId("df36ffc0-7d4d-4b61-9ff8-ba1e63ea39c9");
 const anySubscriber = () => SubscriberId(generate());
 
-describe.skip("Company subscription withdrawing", () => {
+describe("Company subscription withdrawing", () => {
   it("a subscriber can withdraw from a company subscription", () => {
     const sub = aCompanySubscription({ uuid, clock });
     sub.activate();
